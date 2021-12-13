@@ -20,7 +20,10 @@ var TagType;
     TagType[TagType["Header1"] = 1] = "Header1";
     TagType[TagType["Header2"] = 2] = "Header2";
     TagType[TagType["Header3"] = 3] = "Header3";
-    TagType[TagType["HorizontalRule"] = 4] = "HorizontalRule";
+    TagType[TagType["Header4"] = 4] = "Header4";
+    TagType[TagType["Header5"] = 5] = "Header5";
+    TagType[TagType["Header6"] = 6] = "Header6";
+    TagType[TagType["HorizontalRule"] = 7] = "HorizontalRule";
 })(TagType || (TagType = {}));
 var TagTypeToHtml = /** @class */ (function () {
     function TagTypeToHtml() {
@@ -28,6 +31,9 @@ var TagTypeToHtml = /** @class */ (function () {
         this.tagType.set(TagType.Header1, "h1");
         this.tagType.set(TagType.Header2, "h2");
         this.tagType.set(TagType.Header3, "h3");
+        this.tagType.set(TagType.Header4, "h4");
+        this.tagType.set(TagType.Header5, "h5");
+        this.tagType.set(TagType.Header6, "h6");
         this.tagType.set(TagType.Paragraph, "p");
         this.tagType.set(TagType.HorizontalRule, "hr");
     }
@@ -171,6 +177,27 @@ var Header3Visitor = /** @class */ (function (_super) {
     }
     return Header3Visitor;
 }(VisitorBase));
+var Header4Visitor = /** @class */ (function (_super) {
+    __extends(Header4Visitor, _super);
+    function Header4Visitor() {
+        return _super.call(this, TagType.Header4, new TagTypeToHtml()) || this;
+    }
+    return Header4Visitor;
+}(VisitorBase));
+var Header5Visitor = /** @class */ (function (_super) {
+    __extends(Header5Visitor, _super);
+    function Header5Visitor() {
+        return _super.call(this, TagType.Header5, new TagTypeToHtml()) || this;
+    }
+    return Header5Visitor;
+}(VisitorBase));
+var Header6Visitor = /** @class */ (function (_super) {
+    __extends(Header6Visitor, _super);
+    function Header6Visitor() {
+        return _super.call(this, TagType.Header6, new TagTypeToHtml()) || this;
+    }
+    return Header6Visitor;
+}(VisitorBase));
 var ParagraphVisitor = /** @class */ (function (_super) {
     __extends(ParagraphVisitor, _super);
     function ParagraphVisitor() {
@@ -208,6 +235,27 @@ var Header3ChainHandler = /** @class */ (function (_super) {
     }
     return Header3ChainHandler;
 }(ParseChainHandler));
+var Header4ChainHandler = /** @class */ (function (_super) {
+    __extends(Header4ChainHandler, _super);
+    function Header4ChainHandler(document) {
+        return _super.call(this, document, "#### ", new Header3Visitor()) || this;
+    }
+    return Header4ChainHandler;
+}(ParseChainHandler));
+var Header5ChainHandler = /** @class */ (function (_super) {
+    __extends(Header5ChainHandler, _super);
+    function Header5ChainHandler(document) {
+        return _super.call(this, document, "##### ", new Header3Visitor()) || this;
+    }
+    return Header5ChainHandler;
+}(ParseChainHandler));
+var Header6ChainHandler = /** @class */ (function (_super) {
+    __extends(Header6ChainHandler, _super);
+    function Header6ChainHandler(document) {
+        return _super.call(this, document, "###### ", new Header3Visitor()) || this;
+    }
+    return Header6ChainHandler;
+}(ParseChainHandler));
 var HorizontalRuleHandler = /** @class */ (function (_super) {
     __extends(HorizontalRuleHandler, _super);
     function HorizontalRuleHandler(document) {
@@ -238,11 +286,17 @@ var ChainOfResponsibilityFactory = /** @class */ (function () {
         var header1 = new Header1ChainHandler(document);
         var header2 = new Header2ChainHandler(document);
         var header3 = new Header3ChainHandler(document);
+        var header4 = new Header4ChainHandler(document);
+        var header5 = new Header5ChainHandler(document);
+        var header6 = new Header6ChainHandler(document);
         var horizontalRule = new HorizontalRuleHandler(document);
         var paragraph = new ParagraphHandler(document);
         header1.SetNext(header2);
         header2.SetNext(header3);
-        header3.SetNext(horizontalRule);
+        header3.SetNext(header4);
+        header4.SetNext(header5);
+        header5.SetNext(header6);
+        header6.SetNext(horizontalRule);
         horizontalRule.SetNext(paragraph);
         return header1;
     };

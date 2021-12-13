@@ -8,6 +8,13 @@ markdownParser for exercise typescript : 1
 # link
 [마크다운파서 링크](https://choipureum.github.io/markdownParser/)
 
+# func
+``` json
+
+
+
+```
+
 # period
 21.12.13
 
