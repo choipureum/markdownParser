@@ -9,6 +9,7 @@ markdownParser for exercise typescript : 1
 [마크다운파서 링크](https://choipureum.github.io/markdownParser/)
 
 # func
+sungyi
 ``` json
 
 
